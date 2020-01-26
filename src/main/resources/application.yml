@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  datasource:   #spring数据源配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://www
+    username: root
+    password: 123456
+    druid:
+      max-active: 10
+      min-idle: 5
+      max-wait: 5000
+      initial-size: 5
+      validation-query: select 1
+      stat-view-servlet:
+        enabled: true
+        login-username: root
+        login-password: 123456
+        allow:
+        deny:
+        url-pattern: "/druid/*"
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
