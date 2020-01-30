@@ -3,7 +3,7 @@ server:
 spring:
   datasource:   #spring数据源配置
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://www
+    url: jdbc:mysql://127.0.0.1:3306/warehouse_back?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC&useSSL=false
     username: root
     password: 123456
     druid:
@@ -23,3 +23,37 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+
+  #redis
+  redis:
+    host: 192.168.44.134
+    password:
+    port: 6379
+    jedis:
+      pool:
+        max-active: 20
+        max-idle: 8
+        min-idle: 0
+        max-wait: 2000
+
+
+#shiro配置
+shiro:
+  hash-algorithm-name: md5
+  hash-iterations: 2
+  login-url: /index.html
+  unauthorized-url: /unauthorized.html
+  anon-urls:
+    - /**
+    - /index.html*
+    - /login/login*
+    - /resources/**
+  logout-url: /login/logout*
+  authc-urls:
+    - /**
+
+#mybatisplus的配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*Mapper.xml

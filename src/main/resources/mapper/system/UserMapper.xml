@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yeqifu.system.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.yeqifu.system.domain.User">
+    <!--@mbg.generated-->
+    <!--@Table sys_user-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="loginname" jdbcType="VARCHAR" property="loginname" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="deptid" jdbcType="INTEGER" property="deptid" />
+    <result column="hiredate" jdbcType="TIMESTAMP" property="hiredate" />
+    <result column="mgr" jdbcType="INTEGER" property="mgr" />
+    <result column="available" jdbcType="INTEGER" property="available" />
+    <result column="ordernum" jdbcType="INTEGER" property="ordernum" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="imgpath" jdbcType="VARCHAR" property="imgpath" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, loginname, pwd, address, sex, remark, deptid, hiredate, mgr, available, 
+    ordernum, `type`, imgpath, salt
+  </sql>
+</mapper>
