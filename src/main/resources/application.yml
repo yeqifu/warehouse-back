@@ -26,16 +26,15 @@ spring:
 
   #redis
   redis:
-    host: 192.168.44.134
-    password:
-    port: 6379
+    host: 192.168.44.135
+    port: 6380
+    password: 123456
     jedis:
       pool:
         max-active: 20
         max-idle: 8
         min-idle: 0
         max-wait: 2000
-
 
 #shiro配置
 shiro:
@@ -50,7 +49,7 @@ shiro:
     - /resources/**
   logout-url: /login/logout*
   authc-urls:
-    - /**
+#    - /**
 
 #mybatisplus的配置
 mybatis-plus:
