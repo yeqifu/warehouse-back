@@ -25,11 +25,34 @@ public class Constant {
     public static final String MENU_TYPE_LEFT="leftmenu";
     public static final String MENU_TYPE_PERMISSION="permission";
 
-
     /**
      * 是否展开     0：不展开       1：展开
      */
     public static final Integer SPREAD_FALSE=0;
     public static final Integer SPREAD_TRUE=1;
 
+    /**
+     * 是否登录
+     */
+    public static final String IS_LOGIN="已登录";
+    public static final String UN_LOGIN="未登录";
+
+    /**
+     * 是否删除成功
+     */
+    public static final String DELETE_ERROR ="删除失败！";
+    public static final String DELETE_SUCCESS ="删除成功！";
+
+    /**
+     * 返回响应码    CODE_ERROR:-1  响应失败     CODE_SUCCESS:200    响应成功
+     */
+    public static final Integer CODE_ERROR = -1;
+    public static final Integer CODE_SUCCESS = 200;
+
+    /**
+     * 批量删除成功
+     */
+    public static final String BATCHDELETE_SUCCESS = "批量删除成功！";
+    public static final String BATCHDELETE_ERROR = "批量删除失败！";
+    public static final String BATCHDELETE_ERROR_NEWS = "传入ID错误！";
 }

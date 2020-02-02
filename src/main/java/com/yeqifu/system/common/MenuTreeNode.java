@@ -15,12 +15,14 @@ public class MenuTreeNode {
 
     private Integer id;
     private Integer pid;
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String title;
     private String href;
     private String icon;
     private Boolean spread;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String typecode;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String target;
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<MenuTreeNode> child = new ArrayList<>();

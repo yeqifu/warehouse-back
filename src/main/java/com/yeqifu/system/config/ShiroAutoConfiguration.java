@@ -1,6 +1,7 @@
 package com.yeqifu.system.config;
 
 import com.yeqifu.system.realm.UserRealm;
+import com.yeqifu.system.shiro.OptionsAccessControlFilter;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -24,6 +25,7 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import javax.servlet.Filter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,6 +100,12 @@ public class ShiroAutoConfiguration {
         bean.setLoginUrl(shiroProperties.getLoginUrl());
         //注入未授权的页面地址
         bean.setUnauthorizedUrl(shiroProperties.getUnauthorizedUrl());
+
+        //创建自定义filter
+        OptionsAccessControlFilter filter = new OptionsAccessControlFilter();
+        Map<String, Filter> map = new HashMap<>();
+        map.put("options",filter);
+        bean.setFilters(map);
         //注入过滤器
         Map<String, String> filterChainDefinition=new HashMap<>();
 
@@ -191,7 +199,7 @@ public class ShiroAutoConfiguration {
         // 连接池初始就有10 个
         jedisPoolConfig.setMinIdle(redisProperties.getJedis().getPool().getMinIdle());
         JedisPool jedisPool = new JedisPool(jedisPoolConfig, redisProperties.getHost(), redisProperties.getPort(),2000,redisProperties.getPassword());
-        redisManager.setJedisPool(jedisPool );
+        redisManager.setJedisPool(jedisPool);
         return redisManager ;
     }
 
