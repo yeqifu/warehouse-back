@@ -24,7 +24,7 @@ public class LoginfoController {
     /**
      * 查询所有的登陆日志
      * @param loginfoVo
-     * @return
+     * @return  DataGridView
      */
     @RequestMapping("loadAllLoginfo")
     public Object loadAllLoginfo(LoginfoVo loginfoVo){
@@ -34,7 +34,7 @@ public class LoginfoController {
     /**
      * 删除一条日志
      * @param id    日志ID
-     * @return
+     * @return      ResultObj
      */
     @RequestMapping("deleteLoginfo")
     public ResultObj deleteLoginfo(Integer id){
@@ -50,7 +50,7 @@ public class LoginfoController {
     /**
      * 批量删除日志
      * @param ids   日志ID形成的数组
-     * @return
+     * @return      ResultObj
      */
     @RequestMapping("batchDeleteLoginfo")
     public ResultObj batchDeleteLoginfo(Integer[] ids){

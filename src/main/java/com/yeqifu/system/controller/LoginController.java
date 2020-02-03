@@ -40,7 +40,7 @@ public class LoginController {
      * 用户登录
      * @param loginname     用户名
      * @param password      密码
-     * @return
+     * @return              ResultObj
      */
     @RequestMapping("doLogin")
     @ResponseBody
@@ -69,12 +69,9 @@ public class LoginController {
     }
 
 
-
-
-
     /**
      * 加载主页菜单
-     * @return
+     * @return  主页加载菜单所需要的json串
      */
     @RequestMapping("loadIndexMenu")
     @ResponseBody
@@ -113,7 +110,7 @@ public class LoginController {
 
     /**
      * 验证当前token是否登陆
-     * @return
+     * @return  ResultObj
      */
     @RequestMapping("checkLogin")
     @ResponseBody

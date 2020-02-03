@@ -55,4 +55,13 @@ public class Constant {
     public static final String BATCHDELETE_SUCCESS = "批量删除成功！";
     public static final String BATCHDELETE_ERROR = "批量删除失败！";
     public static final String BATCHDELETE_ERROR_NEWS = "传入ID错误！";
+
+    /**
+     * 添加失败
+     */
+    public static final String ADD_SUCCESS = "添加成功";
+    public static final String ADD_ERROR = "添加失败";
+
+    public static final String UPDATE_SUCCESS = "修改成功";
+    public static final String UPDATE_ERROR = "修改失败";
 }
