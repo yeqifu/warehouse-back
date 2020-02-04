@@ -26,7 +26,7 @@ spring:
 
   #redis
   redis:
-    host: 192.168.44.137
+    host: 192.168.44.138
     port: 6380
     password: 123456
     jedis:
@@ -55,4 +55,4 @@ shiro:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/*/*Mapper.xml
