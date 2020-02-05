@@ -30,4 +30,14 @@ public interface DeptService extends IService<Dept>{
      * @return
      */
     Integer queryDeptMaxOrderNum();
+
+    Dept updateDept(Dept dept);
+
+    /**
+     * 根据ID查询其子部门的个数
+     * @param id
+     * @return
+     */
+    Integer queryDeptChildrenCountById(Integer id);
+
 }

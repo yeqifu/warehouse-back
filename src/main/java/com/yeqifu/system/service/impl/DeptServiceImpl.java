@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -43,5 +44,26 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     @Override
     public Integer queryDeptMaxOrderNum() {
         return deptMapper.queryDeptMaxOrderNum();
+    }
+
+    @Override
+    public Dept updateDept(Dept dept) {
+        deptMapper.updateById(dept);
+        return dept;
+    }
+
+    @Override
+    public Integer queryDeptChildrenCountById(Integer id) {
+        return deptMapper.queryDeptChildrenCountById(id);
+    }
+
+    @Override
+    public Dept getById(Serializable id) {
+        return super.getById(id);
+    }
+
+    @Override
+    public boolean removeById(Serializable id) {
+        return super.removeById(id);
     }
 }

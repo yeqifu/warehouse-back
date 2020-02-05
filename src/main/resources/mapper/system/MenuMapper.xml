@@ -20,4 +20,13 @@
     <!--@mbg.generated-->
     id, pid, `type`, typecode, title, icon, href, target, spread, ordernum, available
   </sql>
+
+  <!-- 查询菜单和权限最大排序码-->
+    <select id="queryMenuMaxOrderNum" resultType="java.lang.Integer">
+      select max(ordernum) from sys_menu;
+    </select>
+  <!-- 根据菜单和权限ID查询其子菜单或权限的个数 -->
+  <select id="queryMenuChildrenCountById" resultType="java.lang.Integer">
+    select count(1) from sys_menu where pid=#{value};
+  </select>
 </mapper>

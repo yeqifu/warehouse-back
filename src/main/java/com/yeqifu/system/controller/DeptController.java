@@ -62,5 +62,59 @@ public class DeptController {
         return new DataGridView(maxValue+1);
     }
 
+    /**
+     * 修改部门
+     * @param dept
+     * @return
+     */
+    @PostMapping("updateDept")
+    public ResultObj updateDept(Dept dept){
+        try {
+            deptService.updateDept(dept);
+            return ResultObj.UPDATE_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.UPDATE_ERROR;
+        }
+
+    }
+
+    /**
+     * 通过ID查询出部门信息
+     * @param id
+     * @return
+     */
+    @GetMapping("getDeptById")
+    public Object getDeptById(Integer id){
+        return new DataGridView(deptService.getById(id));
+    }
+
+    /**
+     * 根据部门ID查询其子部门的个数
+     * @param id
+     * @return
+     */
+    @GetMapping("getDeptChildrenCountById")
+    public Object getDeptChildrenCountById(Integer id){
+        Integer count = deptService.queryDeptChildrenCountById(id);
+        return new DataGridView(count);
+    }
+
+    /**
+     * 删除部门
+     * @param id    部门ID
+     * @return      ResultObj
+     */
+    @PostMapping("deleteDept")
+    public ResultObj deleteDept(Integer id){
+        try {
+            deptService.removeById(id);
+            return ResultObj.DELETE_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.DELETE_ERROR;
+        }
+    }
+
 
 }

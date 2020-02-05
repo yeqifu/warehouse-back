@@ -20,9 +20,14 @@
   </sql>
 
   <!-- 查询最大排序码 -->
-  <select id="queryDeptMaxOrderNum" resultType="java.lang.Integer">
-    select max(ordernum) from sys_dept;
-  </select>
+    <select id="queryDeptMaxOrderNum" resultType="java.lang.Integer">
+      select max(ordernum) from sys_dept;
+    </select>
+
+  <!-- 根据部门ID查询其子部门的个数 -->
+    <select id="queryDeptChildrenCountById" resultType="java.lang.Integer">
+      select count(1) from sys_dept where pid=#{value}
+    </select>
 
 
 </mapper>
