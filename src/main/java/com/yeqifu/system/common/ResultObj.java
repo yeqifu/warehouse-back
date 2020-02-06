@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResultObj {
+
     /**
      * 响应码
      */
@@ -57,5 +58,11 @@ public class ResultObj {
      */
     public static final ResultObj UPDATE_SUCCESS = new ResultObj(Constant.CODE_SUCCESS,Constant.UPDATE_SUCCESS);
     public static final ResultObj UPDATE_ERROR = new ResultObj(Constant.CODE_ERROR,Constant.UPDATE_ERROR);
+
+    /**
+     * 分配菜单或权限是否成功
+     */
+    public static final ResultObj DISPATCH_SUCCESS = new ResultObj(Constant.CODE_SUCCESS,Constant.DISPATCH_SUCCESS);
+    public static final ResultObj DISPATCH_ERROR = new ResultObj(Constant.CODE_ERROR,Constant.DISPATCH_ERROR);
 
 }

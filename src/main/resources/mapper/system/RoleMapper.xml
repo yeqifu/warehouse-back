@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yeqifu.system.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.yeqifu.system.domain.Role">
+        <!--@mbg.generated-->
+        <!--@Table sys_role-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="available" jdbcType="INTEGER" property="available"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, `name`, remark, available, createtime
+    </sql>
+
+    <delete id="deleteRoleMenuByRid">
+      delete from sys_role_menu where rid=#{value}
+    </delete>
+
+
+    <delete id="deleteRoleMenuByMid">
+      delete from sys_role_menu where mid=#{value}
+    </delete>
+
+
+    <delete id="deleteRoleUserByRid">
+      delete from sys_user_role where rid=#{value}
+    </delete>
+
+
+    <delete id="deleteRoleUserByUid">
+      delete from sys_user_role where uid=#{value}
+    </delete>
+
+
+    <select id="queryMenuIdsByRid" resultType="java.lang.Integer">
+      select mid from sys_role_menu where rid=#{value}
+    </select>
+    <delete id="insertRoleMenu">
+        insert into sys_role_menu (rid, mid) values (#{rid},#{mid});
+    </delete>
+
+
+</mapper>

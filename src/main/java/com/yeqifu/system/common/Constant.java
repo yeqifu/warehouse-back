@@ -64,4 +64,6 @@ public class Constant {
 
     public static final String UPDATE_SUCCESS = "修改成功";
     public static final String UPDATE_ERROR = "修改失败";
+    public static final String DISPATCH_SUCCESS = "分配成功";
+    public static final String DISPATCH_ERROR = "分配失败";
 }
