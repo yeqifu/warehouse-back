@@ -62,8 +62,25 @@ public class Constant {
     public static final String ADD_SUCCESS = "添加成功";
     public static final String ADD_ERROR = "添加失败";
 
+    /**
+     * 修改
+     */
     public static final String UPDATE_SUCCESS = "修改成功";
     public static final String UPDATE_ERROR = "修改失败";
+
+    /**
+     * 分配权限
+     */
     public static final String DISPATCH_SUCCESS = "分配成功";
     public static final String DISPATCH_ERROR = "分配失败";
+
+    /**
+     * 默认密码
+     */
+    public static final String DEFAULT_PASSWORD="123456";
+
+    /**
+     * 默认头像地址
+     */
+    public static final String DEFAULT_IMAGE = "";
 }

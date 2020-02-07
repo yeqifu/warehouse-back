@@ -9,6 +9,9 @@ import com.yeqifu.system.service.DeptService;
 import com.yeqifu.system.vo.DeptVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -35,6 +38,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
         return new DataGridView(Long.valueOf(depts.size()),depts);
     }
 
+    @CachePut(cacheNames = "com.yeqifu.system.service.impl.DeptServiceImpl",key = "#result.id")
     @Override
     public Dept saveDept(Dept dept) {
         deptMapper.insert(dept);
@@ -46,6 +50,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
         return deptMapper.queryDeptMaxOrderNum();
     }
 
+    @CachePut(cacheNames = "com.yeqifu.system.service.impl.DeptServiceImpl",key = "#result.id")
     @Override
     public Dept updateDept(Dept dept) {
         deptMapper.updateById(dept);
@@ -57,11 +62,13 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
         return deptMapper.queryDeptChildrenCountById(id);
     }
 
+    @Cacheable(cacheNames = "com.yeqifu.system.service.impl.DeptServiceImpl",key = "#id")
     @Override
     public Dept getById(Serializable id) {
         return super.getById(id);
     }
 
+    @CacheEvict(cacheNames = "com.yeqifu.system.service.impl.DeptServiceImpl",key = "#id")
     @Override
     public boolean removeById(Serializable id) {
         return super.removeById(id);

@@ -10,6 +10,7 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.realm.AuthenticatingRealm;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 /**
  * @Author: 落亦-
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserRealm extends AuthenticatingRealm {
 
     @Autowired
+    @Lazy
     private UserService userService;
 
     @Override

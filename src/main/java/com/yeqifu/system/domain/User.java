@@ -4,13 +4,14 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
 * @Author: 落亦-
@@ -31,6 +32,10 @@ public class User implements Serializable {
     private String loginname;
 
     @TableField(value = "pwd")
+    /**
+     * 生成json串时不序列化
+     */
+    @JsonIgnore
     private String pwd;
 
     @TableField(value = "address")
@@ -45,8 +50,17 @@ public class User implements Serializable {
     @TableField(value = "deptid")
     private Integer deptid;
 
+    /**
+     * 部门名称
+     */
+    @TableField(exist = false)
+    private String deptname;
+
+    /**
+     * 入职时间
+     */
     @TableField(value = "hiredate")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date hiredate;
 
     /**
@@ -54,6 +68,12 @@ public class User implements Serializable {
      */
     @TableField(value = "mgr")
     private Integer mgr;
+
+    /**
+     * 上级领导名称
+     */
+    @TableField(exist = false)
+    private String mgrname;
 
     /**
      * 是否可用，0不可用，1可用
@@ -83,6 +103,7 @@ public class User implements Serializable {
      * 盐
      */
     @TableField(value = "salt")
+    @JsonIgnore
     private String salt;
 
     private static final long serialVersionUID = 1L;
