@@ -1,10 +1,12 @@
 package com.yeqifu.system.controller;
 
+import com.yeqifu.system.common.DataGridView;
 import com.yeqifu.system.common.ResultObj;
 import com.yeqifu.system.domain.User;
 import com.yeqifu.system.service.UserService;
 import com.yeqifu.system.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +45,27 @@ public class UserController {
             e.printStackTrace();
             return ResultObj.ADD_ERROR;
         }
+    }
+
+    /**
+     * 根据部门ID查询出该部门所有员工
+     * @param deptId
+     * @return
+     */
+    @GetMapping("loadUsersByDeptId")
+    public DataGridView loadUsersByDeptId(Integer deptId){
+        DataGridView dataGridView = userService.loadUsersByDeptId(deptId);
+        return dataGridView;
+    }
+
+    /**
+     * 查询用户最大排序码
+     * @return      排序码
+     */
+    @GetMapping("queryUserMaxOrderNum")
+    public Object queryUserMaxOrderNum(){
+        Integer maxValue = userService.queryUserMaxOrderNum();
+        return new DataGridView(maxValue+1);
     }
 
     /**

@@ -43,7 +43,6 @@ public class DeptController {
         try {
             dept.setSpread(Constant.SPREAD_FALSE);
             dept.setAvailable(Constant.AVAILABLE_TRUE);
-
             deptService.saveDept(dept);
             return ResultObj.ADD_SUCCESS;
         } catch (Exception e) {
@@ -86,7 +85,7 @@ public class DeptController {
      */
     @GetMapping("getDeptById")
     public Object getDeptById(Integer id){
-        return new DataGridView(deptService.getById(id));
+        return new DataGridView(this.deptService.getById(id));
     }
 
     /**

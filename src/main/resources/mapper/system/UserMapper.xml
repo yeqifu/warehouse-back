@@ -25,4 +25,8 @@
     id, `name`, loginname, pwd, address, sex, remark, deptid, hiredate, mgr, available, 
     ordernum, `type`, imgpath, salt
   </sql>
+  <select id="queryUserMaxOrderNum" resultType="java.lang.Integer">
+    select max(ordernum) from sys_user;
+  </select>
+
 </mapper>

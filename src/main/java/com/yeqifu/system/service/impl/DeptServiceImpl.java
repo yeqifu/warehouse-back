@@ -31,10 +31,8 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     public DataGridView queryAllDept(DeptVo deptVo) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
         queryWrapper.like(StringUtils.isNotBlank(deptVo.getTitle()),"title",deptVo.getTitle());
-        queryWrapper.like(StringUtils.isNotBlank(deptVo.getRemark()),"remark",deptVo.getRemark());
-        queryWrapper.like(StringUtils.isNotBlank(deptVo.getAddress()),"address",deptVo.getAddress());
         queryWrapper.orderByAsc("ordernum");
-        List<Dept> depts = deptMapper.selectList(queryWrapper);
+        List<Dept> depts = this.deptMapper.selectList(queryWrapper);
         return new DataGridView(Long.valueOf(depts.size()),depts);
     }
 
@@ -53,13 +51,13 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     @CachePut(cacheNames = "com.yeqifu.system.service.impl.DeptServiceImpl",key = "#result.id")
     @Override
     public Dept updateDept(Dept dept) {
-        deptMapper.updateById(dept);
+        this.deptMapper.updateById(dept);
         return dept;
     }
 
     @Override
     public Integer queryDeptChildrenCountById(Integer id) {
-        return deptMapper.queryDeptChildrenCountById(id);
+        return this.deptMapper.queryDeptChildrenCountById(id);
     }
 
     @Cacheable(cacheNames = "com.yeqifu.system.service.impl.DeptServiceImpl",key = "#id")

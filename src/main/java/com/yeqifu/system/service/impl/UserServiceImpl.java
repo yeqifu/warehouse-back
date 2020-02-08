@@ -42,7 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public User queryUserByLoginName(String loginname) {
-        UserMapper userMapper = this.getBaseMapper();
+//        UserMapper userMapper = this.getBaseMapper();
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isBlank(loginname)){
             log.error("登陆名不能为空");
@@ -66,23 +66,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         queryWrapper.eq(null!=userVo.getDeptid(),"deptid",userVo.getDeptid());
         queryWrapper.like(StringUtils.isNotBlank(userVo.getName()),"name",userVo.getName());
         queryWrapper.like(StringUtils.isNotBlank(userVo.getAddress()),"address",userVo.getAddress());
-        queryWrapper.like(StringUtils.isNotBlank(userVo.getRemark()),"remark",userVo.getRemark());
         queryWrapper.orderByDesc("ordernum");
         userMapper.selectPage(page,queryWrapper);
         List<User> records = page.getRecords();
         //通过工具类获得deptService
         DeptService deptService = AppUtils.getContext().getBean(DeptService.class);
+        System.out.println(deptService);
         //通过工具类获得userService
         UserService userService = AppUtils.getContext().getBean(UserService.class);
         for (User record : records) {
             if (null!=record.getDeptid()){
                 Dept dept = deptService.getById(record.getDeptid());
+                System.out.println(dept.toString());
                 record.setDeptname(dept.getTitle());
             }
             if (null!=record.getMgr()){
                 User user = userService.getById(record.getMgr());
                 record.setMgrname(user.getName());
             }
+            System.out.println(record.toString());
         }
         return new DataGridView(page.getTotal(),records);
     }
@@ -94,11 +96,34 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public User saveUser(User user) {
+        user.setType(Constant.USER_TYPE_NORMAL);
         user.setSalt(MD5Utils.createUUID());
         user.setPwd(MD5Utils.md5(Constant.DEFAULT_PASSWORD,user.getSalt(),2));
         user.setImgpath(Constant.DEFAULT_IMAGE);
         userMapper.insert(user);
         return user;
+    }
+
+    /**
+     * 根据部门ID查询出该部门底下的所有员工
+     * @param deptId    部门ID
+     * @return          DataGridView
+     */
+    @Override
+    public DataGridView loadUsersByDeptId(Integer deptId) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+        queryWrapper.eq(deptId!=null,"deptid",deptId);
+        List<User> users = userMapper.selectList(queryWrapper);
+        return new DataGridView(Long.valueOf(users.size()),users);
+    }
+
+    /**
+     * 查询用户最大排序码
+     * @return
+     */
+    @Override
+    public Integer queryUserMaxOrderNum() {
+        return userMapper.queryUserMaxOrderNum();
     }
 
     /**
@@ -111,4 +136,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userMapper.updateById(user);
         return user;
     }
+
+
 }

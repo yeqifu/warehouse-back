@@ -8,4 +8,10 @@ import com.yeqifu.system.domain.User;
 * @Date: 2020/1/30 16:39
 */
 public interface UserMapper extends BaseMapper<User> {
+
+    /**
+     * 查询用户最大排序码
+     * @return
+     */
+    Integer queryUserMaxOrderNum();
 }

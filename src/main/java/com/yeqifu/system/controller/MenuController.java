@@ -93,6 +93,10 @@ public class MenuController {
             return ResultObj.UPDATE_ERROR;
         }
     }
+    @GetMapping("getMenuById")
+    public Object getMenuById(Integer id){
+        return new DataGridView(this.menuService.getById(id));
+    }
 
     /**
      * 根据ID查询当前菜单和权限的子菜单和权限个数

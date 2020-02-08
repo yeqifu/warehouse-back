@@ -36,4 +36,17 @@ public interface UserService extends IService<User>{
      * @param user
      */
     User updateUser(User user);
+
+    /**
+     * 根据部门ID查询出该部门底下的所有员工
+     * @param deptId    部门ID
+     * @return          DataGridView
+     */
+    DataGridView loadUsersByDeptId(Integer deptId);
+
+    /**
+     * 查询最大排序码
+     * @return
+     */
+    Integer queryUserMaxOrderNum();
 }
