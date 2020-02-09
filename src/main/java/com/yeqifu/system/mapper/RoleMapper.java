@@ -49,4 +49,11 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @param mid
      */
     void insertRoleMenu(@Param("rid") Integer rid,@Param("mid") Integer mid);
+
+    /**
+     * 通过用户ID查询该用户所拥有的角色ID
+     * @param userId    用户ID
+     * @return          角色ID的集合
+     */
+    List<Integer> queryRoleIdsByUserId(Integer userId);
 }

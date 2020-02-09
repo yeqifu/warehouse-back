@@ -41,6 +41,9 @@
     <delete id="insertRoleMenu">
         insert into sys_role_menu (rid, mid) values (#{rid},#{mid});
     </delete>
+    <select id="queryRoleIdsByUserId" resultType="java.lang.Integer">
+        select rid from sys_user_role where uid=#{userId};
+    </select>
 
 
 </mapper>

@@ -10,6 +10,7 @@ import com.yeqifu.system.common.DataGridView;
 import com.yeqifu.system.common.MD5Utils;
 import com.yeqifu.system.domain.Dept;
 import com.yeqifu.system.domain.User;
+import com.yeqifu.system.mapper.RoleMapper;
 import com.yeqifu.system.mapper.UserMapper;
 import com.yeqifu.system.service.DeptService;
 import com.yeqifu.system.service.UserService;
@@ -20,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -34,6 +36,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private RoleMapper roleMapper;
 
     /**
      * 通过用户登录名去查询用户
@@ -67,7 +71,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         queryWrapper.like(StringUtils.isNotBlank(userVo.getName()),"name",userVo.getName());
         queryWrapper.like(StringUtils.isNotBlank(userVo.getAddress()),"address",userVo.getAddress());
         queryWrapper.orderByDesc("ordernum");
-        userMapper.selectPage(page,queryWrapper);
+        this.userMapper.selectPage(page,queryWrapper);
         List<User> records = page.getRecords();
         //通过工具类获得deptService
         DeptService deptService = AppUtils.getContext().getBean(DeptService.class);
@@ -82,6 +86,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
             if (null!=record.getMgr()){
                 User user = userService.getById(record.getMgr());
+                System.out.println(user.toString());
                 record.setMgrname(user.getName());
             }
             System.out.println(record.toString());
@@ -118,6 +123,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     /**
+     * 删除一个用户
+     * @param id    用户ID
+     * @return
+     */
+    @Override
+    public boolean removeById(Serializable id) {
+        //根据用户ID删除角色和用户中间表中的数据
+        roleMapper.deleteRoleUserByUid(id);
+        return super.removeById(id);
+    }
+
+    /**
      * 查询用户最大排序码
      * @return
      */
@@ -125,6 +142,41 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public Integer queryUserMaxOrderNum() {
         return userMapper.queryUserMaxOrderNum();
     }
+
+    /**
+     * 查询出该用户是否是其他用户的直属领导
+     * @param id    该用户ID
+     * @return
+     */
+    @Override
+    public Boolean queryOtherUserMgr(Integer id) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("mgr",id);
+        List<User> users = userMapper.selectList(queryWrapper);
+        if (null!=users&&users.size()>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    /**
+     * 保存用户和角色之间的关系
+     * @param uid
+     * @param rids
+     */
+    @Override
+    public void saveUserRole(Integer uid, Integer[] rids) {
+        //根据用户ID删除角色和用户中间表中的数据
+        roleMapper.deleteRoleUserByUid(uid);
+        if (null!=rids&&rids.length>0){
+            for (Integer rid : rids) {
+                userMapper.saveUserRole(uid,rid);
+            }
+        }
+
+    }
+
 
     /**
      * 更新一个用户

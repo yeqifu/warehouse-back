@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -60,7 +59,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
         return this.deptMapper.queryDeptChildrenCountById(id);
     }
 
-    @Cacheable(cacheNames = "com.yeqifu.system.service.impl.DeptServiceImpl",key = "#id")
+//    @Cacheable(cacheNames = "com.yeqifu.system.service.impl.DeptServiceImpl",key = "#id")
     @Override
     public Dept getById(Serializable id) {
         return super.getById(id);

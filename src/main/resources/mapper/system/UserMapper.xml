@@ -28,5 +28,8 @@
   <select id="queryUserMaxOrderNum" resultType="java.lang.Integer">
     select max(ordernum) from sys_user;
   </select>
+    <insert id="saveUserRole">
+      insert into sys_user_role(uid, rid) values (#{uid},#{rid})
+    </insert>
 
 </mapper>

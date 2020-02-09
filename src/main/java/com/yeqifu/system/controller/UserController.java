@@ -1,6 +1,8 @@
 package com.yeqifu.system.controller;
 
+import com.yeqifu.system.common.Constant;
 import com.yeqifu.system.common.DataGridView;
+import com.yeqifu.system.common.MD5Utils;
 import com.yeqifu.system.common.ResultObj;
 import com.yeqifu.system.domain.User;
 import com.yeqifu.system.service.UserService;
@@ -85,6 +87,37 @@ public class UserController {
     }
 
     /**
+     * 通过用户ID查询出该用户
+     * @param id    用户ID
+     * @return      user
+     */
+    @RequestMapping("loadUserById")
+    public User loadUserById(Integer id){
+        User user = userService.getById(id);
+        return user;
+    }
+
+    /**
+     * 重置用户密码
+     * @param id    用户ID
+     * @return      ResultObj
+     */
+    @RequestMapping("resetUserPwd")
+    public ResultObj resetUserPwd(Integer id){
+        try {
+            User user = new User();
+            user.setId(id);
+            user.setSalt(MD5Utils.createUUID());
+            user.setPwd(MD5Utils.md5(Constant.DEFAULT_PASSWORD,user.getSalt(),2));
+            userService.updateUser(user);
+            return ResultObj.RESET_PWD_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.RESET_PWD_ERROR;
+        }
+    }
+
+    /**
      * 删除用户
      * @param id    用户ID
      * @return      ResultObj
@@ -92,13 +125,35 @@ public class UserController {
     @RequestMapping("deleteUser")
     public ResultObj deleteUser(Integer id){
         try {
-            userService.removeById(id);
-            return ResultObj.DELETE_SUCCESS;
+            //去数据库中查询该用户是否是其他用户的直属领导
+            Boolean isMgr = userService.queryOtherUserMgr(id);
+            if (isMgr){
+                return ResultObj.DELETE_ERROR_NEWS;
+            }else {
+                userService.removeById(id);
+                return ResultObj.DELETE_SUCCESS;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResultObj.DELETE_ERROR;
         }
     }
 
+    /**
+     * 保存用户和角色之间的关系
+     * @param uid       用户ID
+     * @param rids      多个角色形成的数组
+     * @return
+     */
+    @RequestMapping("saveUserRole")
+    public ResultObj saveUserRole(Integer uid,Integer[] rids){
+        try {
+            userService.saveUserRole(uid,rids);
+            return ResultObj.DISPATCH_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.DISPATCH_ERROR;
+        }
+    }
 
 }

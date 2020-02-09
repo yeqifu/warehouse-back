@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * @Author: 落亦-
@@ -90,7 +93,37 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
                 roleMapper.insertRoleMenu(rid,mid);
             }
         }
+    }
 
+    /**
+     * 加载所有可用角色不分页
+     * @param roleVo
+     * @return
+     */
+    @Override
+    public DataGridView loadAllAvailableRoleNoPage(RoleVo roleVo) {
+        QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(roleVo.getAvailable()!=null,"available",roleVo.getAvailable());
+        List<Role> roles = roleMapper.selectList(queryWrapper);
+        //根据用户ID查询已拥有的角色ID
+        List<Integer> roleIds = roleMapper.queryRoleIdsByUserId(roleVo.getUserId());
+        List<Map<String,Object>> lists = new ArrayList<>();
+        for (Role role : roles) {
+            Boolean LAY_CHECKED=false;
+            for (Integer roleId : roleIds) {
+                if (role.getId().equals(roleId)){
+                    LAY_CHECKED=true;
+                    break;
+                }
+            }
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",role.getId());
+            map.put("name",role.getName());
+            map.put("remark",role.getRemark());
+            map.put("LAY_CHECKED",LAY_CHECKED);
+            lists.add(map);
+        }
+        return new DataGridView(Long.valueOf(lists.size()),lists);
     }
 
     /**

@@ -14,6 +14,8 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 public class RoleVo extends BaseVo {
 
+    private Integer userId;
+
     private String name;
 
     private String remark;

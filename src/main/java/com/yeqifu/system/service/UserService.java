@@ -49,4 +49,18 @@ public interface UserService extends IService<User>{
      * @return
      */
     Integer queryUserMaxOrderNum();
+
+    /**
+     * 查询该用户是否是其他用户的直属领导
+     * @param id    该用户ID
+     * @return      true:是  false:否
+     */
+    Boolean queryOtherUserMgr(Integer id);
+
+    /**
+     * 保存用户和角色之间的关系
+     * @param uid
+     * @param rids
+     */
+    void saveUserRole(Integer uid, Integer[] rids);
 }

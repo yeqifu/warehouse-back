@@ -40,8 +40,8 @@ public class Constant {
     /**
      * 是否删除成功
      */
-    public static final String DELETE_ERROR ="删除失败！";
-    public static final String DELETE_SUCCESS ="删除成功！";
+    public static final String DELETE_ERROR ="删除失败";
+    public static final String DELETE_SUCCESS ="删除成功";
 
     /**
      * 返回响应码    CODE_ERROR:-1  响应失败     CODE_SUCCESS:200    响应成功
@@ -52,9 +52,9 @@ public class Constant {
     /**
      * 批量删除成功
      */
-    public static final String BATCHDELETE_SUCCESS = "批量删除成功！";
-    public static final String BATCHDELETE_ERROR = "批量删除失败！";
-    public static final String BATCHDELETE_ERROR_NEWS = "传入ID错误！";
+    public static final String BATCHDELETE_SUCCESS = "批量删除成功";
+    public static final String BATCHDELETE_ERROR = "批量删除失败";
+    public static final String BATCHDELETE_ERROR_NEWS = "传入ID错误";
 
     /**
      * 添加失败
@@ -83,4 +83,11 @@ public class Constant {
      * 默认头像地址
      */
     public static final String DEFAULT_IMAGE = "";
+
+    /**
+     * 重置密码
+     */
+    public static final String RESET_PWD_SUCCESS = "重置密码成功";
+    public static final String RESET_PWD_ERROR = "重置密码失败";
+    public static final String DELETE_ERROR_NEWS = "删除用户失败，该用户是其他用户的直属领导,要删除该用户，请先修改该用户下属的直属领导";
 }

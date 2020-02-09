@@ -19,6 +19,4 @@ public class UserVo extends BaseVo {
 
     private Integer deptid;
 
-    private Integer available;
-
 }

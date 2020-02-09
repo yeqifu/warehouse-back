@@ -2,6 +2,7 @@ package com.yeqifu.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yeqifu.system.domain.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @Author: 落亦-
@@ -14,4 +15,11 @@ public interface UserMapper extends BaseMapper<User> {
      * @return
      */
     Integer queryUserMaxOrderNum();
+
+    /**
+     * 保存用户和角色的关系
+     * @param uid
+     * @param rid
+     */
+    void saveUserRole(@Param("uid") Integer uid, @Param("rid") Integer rid);
 }

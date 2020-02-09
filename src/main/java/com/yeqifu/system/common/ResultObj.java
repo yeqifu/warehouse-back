@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResultObj {
 
+
     /**
      * 响应码
      */
@@ -64,5 +65,16 @@ public class ResultObj {
      */
     public static final ResultObj DISPATCH_SUCCESS = new ResultObj(Constant.CODE_SUCCESS,Constant.DISPATCH_SUCCESS);
     public static final ResultObj DISPATCH_ERROR = new ResultObj(Constant.CODE_ERROR,Constant.DISPATCH_ERROR);
+
+    /**
+     * 重置用户密码
+     */
+    public static final ResultObj RESET_PWD_SUCCESS = new ResultObj(Constant.CODE_SUCCESS,Constant.RESET_PWD_SUCCESS);
+    public static final ResultObj RESET_PWD_ERROR = new ResultObj(Constant.CODE_ERROR,Constant.RESET_PWD_ERROR);
+
+    /**
+     * 删除用户失败，该用户是其他用户的直属领导
+     */
+    public static final ResultObj DELETE_ERROR_NEWS = new ResultObj(Constant.CODE_ERROR,Constant.DELETE_ERROR_NEWS);
 
 }

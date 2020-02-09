@@ -47,4 +47,11 @@ public interface RoleService extends IService<Role>{
      * @param mids  菜单和权限ID
      */
      void saveRoleMenu(Integer rid, Integer[] mids);
+
+    /**
+     * 加载所有可用角色不分页
+     * @param roleVo
+     * @return
+     */
+    DataGridView loadAllAvailableRoleNoPage(RoleVo roleVo);
 }

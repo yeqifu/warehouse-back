@@ -1,5 +1,6 @@
 package com.yeqifu.system.controller;
 
+import com.yeqifu.system.common.Constant;
 import com.yeqifu.system.common.DataGridView;
 import com.yeqifu.system.common.ResultObj;
 import com.yeqifu.system.domain.Role;
@@ -31,6 +32,17 @@ public class RoleController {
     @RequestMapping("queryAllRole")
     public Object queryAllRole(RoleVo roleVo){
         return roleService.queryAllRole(roleVo);
+    }
+
+    /**
+     * 加载所有可用的角色不分页
+     * @param roleVo
+     * @return
+     */
+    @RequestMapping("loadAllAvailableRoleNoPage")
+    public Object loadAllAvailableRoleNoPage(RoleVo roleVo){
+        roleVo.setAvailable(Constant.AVAILABLE_TRUE);
+        return roleService.loadAllAvailableRoleNoPage(roleVo);
     }
 
     /**
