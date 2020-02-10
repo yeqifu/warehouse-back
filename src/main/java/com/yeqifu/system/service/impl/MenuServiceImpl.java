@@ -6,12 +6,14 @@ import com.yeqifu.system.common.Constant;
 import com.yeqifu.system.common.DataGridView;
 import com.yeqifu.system.domain.Menu;
 import com.yeqifu.system.mapper.MenuMapper;
+import com.yeqifu.system.mapper.RoleMapper;
 import com.yeqifu.system.service.MenuService;
 import com.yeqifu.system.vo.MenuVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -24,6 +26,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Autowired
     private MenuMapper menuMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     public List<Menu> queryAllMenuForList() {
@@ -42,17 +47,31 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<Menu> queryMenuForListByUserId(Integer id) {
-        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("available", Constant.AVAILABLE_TRUE);
-        queryWrapper.and(new Consumer<QueryWrapper<Menu>>() {
-            @Override
-            public void accept(QueryWrapper<Menu> menuQueryWrapper) {
-                menuQueryWrapper.eq("type",Constant.MENU_TYPE_TOP)
-                        .or().eq("type",Constant.MENU_TYPE_LEFT);
+        //根据userId查询角色id的集合
+        List<Integer> roleIds = roleMapper.queryRoleIdsByUserId(id);
+        //根据角色ID的集合，查询菜单的ID的集合
+        if (null!=roleIds&&roleIds.size()>0){
+            List<Integer> menuIds = roleMapper.queryMenuIdsByRids(roleIds);
+            if (null!=menuIds&&menuIds.size()>0){
+                QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("available",Constant.AVAILABLE_TRUE);
+                queryWrapper.and(new Consumer<QueryWrapper<Menu>>() {
+                    @Override
+                    public void accept(QueryWrapper<Menu> menuQueryWrapper) {
+                        menuQueryWrapper.eq("type",Constant.MENU_TYPE_TOP)
+                                .or().eq("type",Constant.MENU_TYPE_LEFT);
+                    }
+                });
+                queryWrapper.in("id",menuIds);
+                queryWrapper.orderByAsc("ordernum");
+                List<Menu> menus=menuMapper.selectList(queryWrapper);
+                return menus;
+            }else {
+                return new ArrayList<>();
             }
-        });
-        queryWrapper.orderByAsc("ordernum");
-        return this.menuMapper.selectList(queryWrapper);
+        }else {
+            return new ArrayList<>();
+        }
     }
 
     /**

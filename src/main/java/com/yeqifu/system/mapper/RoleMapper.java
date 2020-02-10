@@ -56,4 +56,6 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return          角色ID的集合
      */
     List<Integer> queryRoleIdsByUserId(Integer userId);
+
+    List<Integer> queryMenuIdsByRids(@Param("roleIds") List<Integer> roleIds);
 }
